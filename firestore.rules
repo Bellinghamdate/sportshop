@@ -1,0 +1,80 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function admin() {
+      return request.auth != null &&
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // Cấp quyền bằng Firebase Console, dùng UID làm mã tài liệu.
+    match /admins/{uid} {
+      allow get: if request.auth != null && request.auth.uid == uid;
+    }
+
+    match /products/{id} {
+      allow read: if true;
+      allow write: if admin();
+    }
+
+    match /blogs/{id} {
+      allow read: if true;
+      allow write: if admin();
+    }
+
+    // Kế thừa số liệu của sản phẩm cũ khi tạo bộ đếm lần đầu.
+    match /productStats/{id} {
+      function validStep(previous) {
+        let next = request.resource.data;
+        let views = previous.get('views', 0);
+        let likes = previous.get('likes', 0);
+        return next.keys().hasOnly(['views', 'likes']) &&
+          next.views is int && next.likes is int && next.likes >= 0 && next.views >= 0 &&
+          ((next.views == views + 1 && next.likes == likes) ||
+           (next.views == views && (next.likes == likes + 1 || next.likes == likes - 1)));
+      }
+      allow read: if true;
+      allow create: if validStep(get(/databases/$(database)/documents/products/$(id)).data);
+      allow update: if exists(/databases/$(database)/documents/products/$(id)) &&
+        validStep(resource.data);
+      allow delete: if admin();
+    }
+
+    match /orders/{id} {
+      function validOrder(o) {
+        return o.keys().hasOnly(['name', 'phone', 'address', 'email', 'city', 'note',
+            'paymentMethod', 'items', 'subtotal', 'shipping', 'total', 'status', 'createdAt']) &&
+          o.name is string && o.name.size() > 0 && o.name.size() <= 150 &&
+          o.phone is string && o.phone.size() > 0 && o.phone.size() <= 30 &&
+          o.address is string && o.address.size() > 0 && o.address.size() <= 600 &&
+          o.items is list && o.items.size() > 0 && o.items.size() <= 100 &&
+          o.total is number && o.total > 0 &&
+          o.get('status', 'pending') == 'pending' &&
+          o.get('paymentMethod', 'cod') in ['cod', 'bank'] &&
+          o.get('createdAt', request.time) == request.time;
+      }
+      allow create: if validOrder(request.resource.data);
+      allow read: if admin();
+      allow update: if admin() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']) &&
+        request.resource.data.status in ['pending', 'confirmed', 'delivered', 'cancelled'];
+    }
+
+    match /messages/{id} {
+      allow create: if request.resource.data.keys().hasOnly(['name','email','message','createdAt']) &&
+        request.resource.data.name is string && request.resource.data.name.size() > 0 &&
+        request.resource.data.name.size() <= 150 && request.resource.data.email is string &&
+        request.resource.data.email.size() <= 254 &&
+        request.resource.data.email.matches('[^ @]+@[^ @]+[.][^ @]+') &&
+        request.resource.data.message is string && request.resource.data.message.size() > 0 &&
+        request.resource.data.message.size() <= 1500 && request.resource.data.createdAt == request.time;
+      allow read: if admin();
+    }
+
+    match /subscribers/{id} {
+      allow create: if request.resource.data.keys().hasOnly(['email','createdAt']) &&
+        request.resource.data.email is string && request.resource.data.email.size() <= 254 &&
+        request.resource.data.email.matches('[^ @]+@[^ @]+[.][^ @]+');
+      allow read, update, delete: if admin();
+    }
+  }
+}

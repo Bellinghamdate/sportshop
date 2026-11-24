@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Liên hệ · Sport Zone</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/shop.css">
+  </head>
+  <body data-page="contact">
+    <div id="header-placeholder"></div>
+    <main>
+      <header class="page-hero">
+        <div class="container">
+          <h1 data-i18n="contact.title"></h1>
+          <p data-i18n="contact.intro"></p>
+        </div>
+      </header>
+      <div class="container shop-columns">
+        <form id="contactForm" class="shop-panel shop-form">
+          <label>
+            <span data-i18n="checkout.name"></span>
+            <input name="name" maxlength="150" required>
+          </label>
+          <label>
+            <span data-i18n="checkout.email"></span>
+            <input name="email" type="email" maxlength="254" required>
+          </label>
+          <label>
+            <span data-i18n="contact.message"></span>
+            <textarea name="message" rows="4" maxlength="1500" required></textarea>
+          </label>
+          <button class="btn btn--primary" type="submit" data-i18n="contact.send"></button>
+          <p id="contactStatus" role="status"></p>
+        </form>
+        <aside class="shop-panel">
+          <p data-i18n="contact.demo"></p>
+          <a href="size-guide.html" class="btn btn--outline" data-i18n="size.title"></a>
+        </aside>
+      </div>
+    </main>
+    <div id="footer-placeholder"></div>
+    <script type="module" src="js/info.js"></script>
+  </body>
+</html>

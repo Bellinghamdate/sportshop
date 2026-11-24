@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog thể thao – Sport Zone</title>
+  <link rel="stylesheet" href="css/main.css"/>
+  <style>
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 28px; }
+    .blog-card { background: var(--white); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-200); transition: var(--transition); }
+    .blog-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+    .blog-card-img { aspect-ratio: 16/9; overflow: hidden; background: var(--gray-100); display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+    .blog-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .blog-card:hover .blog-card-img img { transform: scale(1.05); }
+    .blog-card-body { padding: 20px; }
+    .blog-card-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; font-size: 0.8rem; color: var(--gray-600); }
+    .blog-card-cat { color: var(--blue); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; }
+    .blog-card-title { font-size: 1.1rem; font-weight: 800; color: var(--navy); margin-bottom: 10px; line-height: 1.4; }
+    .blog-card-title a:hover { color: var(--blue); }
+    .blog-card-excerpt { font-size: 0.9rem; color: var(--gray-600); line-height: 1.6; margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .blog-card-footer { display: flex; align-items: center; justify-content: space-between; }
+    .read-more { color: var(--blue); font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; gap: 4px; transition: var(--transition); }
+    .read-more:hover { gap: 8px; }
+    .cat-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+    .cat-tab { padding: 8px 18px; border-radius: var(--radius-pill); border: 2px solid var(--gray-200); background: var(--white); font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: var(--transition); color: var(--gray-800); }
+    .cat-tab:hover, .cat-tab.active { border-color: var(--blue); background: var(--blue); color: var(--white); }
+    .featured-blog { display: grid; grid-template-columns: 1.2fr 1fr; gap: 0; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); margin-bottom: 48px; border: 1px solid var(--gray-200); }
+    .featured-blog-img { aspect-ratio: unset; min-height: 320px; background: var(--gray-100); overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 6rem; }
+    .featured-blog-img img { width: 100%; height: 100%; object-fit: cover; }
+    .featured-blog-body { padding: 36px; display: flex; flex-direction: column; justify-content: center; background: var(--white); }
+    @media (max-width: 768px) { .featured-blog { grid-template-columns: 1fr; } .featured-blog-img { min-height: 220px; } .featured-blog-body { padding: 24px; } }
+  </style>
+</head>
+<body data-page="blog">
+<div id="header-placeholder"></div>
+
+<section class="page-hero">
+  <div class="container">
+    <h1 data-i18n="blog.title"></h1>
+    <p data-i18n="blog.desc"></p>
+  </div>
+</section>
+
+<div class="container section">
+  <!-- Filter tabs -->
+  <div class="cat-tabs" id="catTabs">
+    <button class="cat-tab active" data-cat="" data-i18n="products.all"></button>
+    <button class="cat-tab" data-cat="football" data-i18n="cat.football"></button>
+    <button class="cat-tab" data-cat="running" data-i18n="cat.running"></button>
+    <button class="cat-tab" data-cat="badminton" data-i18n="cat.badminton"></button>
+    <button class="cat-tab" data-cat="gym" data-i18n="cat.gym"></button>
+    <button class="cat-tab" data-cat="general" data-i18n="admin.general"></button>
+  </div>
+
+  <!-- Bài nổi bật -->
+  <div id="featuredBlog"></div>
+
+  <!-- Grid bài viết -->
+  <div id="blogGrid" class="blog-grid">
+    <div style="grid-column:1/-1" class="spinner-wrap"><div class="spinner"></div></div>
+  </div>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script type="module" src="js/blog.js"></script>
+</body>
+</html>

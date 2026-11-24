@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Đặt đơn mô phỏng · Sport Zone</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/shop.css">
+  </head>
+  <body data-page="checkout">
+    <div id="header-placeholder"></div>
+    <main>
+      <header class="page-hero">
+        <div class="container">
+          <h1 data-i18n="checkout.title"></h1>
+          <p data-i18n="checkout.demo"></p>
+        </div>
+      </header>
+      <div class="container shop-stack">
+        <section id="emptyCheckout" class="shop-panel" hidden>
+          <h2 data-i18n="cart.empty"></h2>
+          <a href="products.html" class="btn btn--outline" data-i18n="cart.continue"></a>
+        </section>
+        <div class="shop-columns checkout-columns" id="checkoutBody" hidden>
+          <form id="orderForm" class="shop-panel shop-form">
+            <h2 data-i18n="checkout.info"></h2>
+            <label>
+              <span data-i18n="checkout.name"></span>
+              <input name="name" maxlength="150" required>
+            </label>
+            <label>
+              <span data-i18n="checkout.phone"></span>
+              <input name="phone" type="tel" minlength="8" maxlength="20" required>
+            </label>
+            <label>
+              <span data-i18n="checkout.email"></span>
+              <input name="email" type="email" maxlength="254">
+            </label>
+            <label>
+              <span data-i18n="checkout.address"></span>
+              <input name="address" maxlength="600" required>
+            </label>
+            <label>
+              <span data-i18n="checkout.city"></span>
+              <input name="city" maxlength="100" required>
+            </label>
+            <label>
+              <span data-i18n="checkout.note"></span>
+              <textarea name="note" rows="2" maxlength="1000"></textarea>
+            </label>
+            <label>
+              <span data-i18n="checkout.payment"></span>
+              <select name="paymentMethod">
+                <option value="cod" data-i18n="checkout.cod"></option>
+                <option value="bank" data-i18n="checkout.bank"></option>
+              </select>
+            </label>
+            <button id="placeOrder" class="btn btn--primary" data-i18n="checkout.place_order"></button>
+            <p role="status" id="orderStatus"></p>
+          </form>
+          <aside class="shop-panel">
+            <h2 data-i18n="checkout.order_summary"></h2>
+            <ul id="orderItems"></ul>
+            <div class="amount">
+              <span data-i18n="cart.subtotal"></span>
+              <strong id="subtotal"></strong>
+            </div>
+            <div class="amount">
+              <span data-i18n="cart.shipping"></span>
+              <strong id="shipping"></strong>
+            </div>
+            <div class="amount grand">
+              <span data-i18n="cart.order_total"></span>
+              <strong id="total"></strong>
+            </div>
+            <a href="cart.html" class="btn btn--outline" data-i18n="cart.title"></a>
+          </aside>
+        </div>
+        <section id="receipt" hidden class="shop-panel" role="status" tabindex="-1">
+          <h2 data-i18n="checkout.success"></h2>
+          <p>
+            <span data-i18n="checkout.receipt"></span>
+            ·
+            <strong id="orderCode"></strong>
+          </p>
+          <p id="receiptNote"></p>
+          <a href="products.html" class="btn btn--outline" data-i18n="cart.continue"></a>
+        </section>
+      </div>
+    </main>
+    <div id="footer-placeholder"></div>
+    <script type="module" src="js/checkout.js"></script>
+  </body>
+</html>

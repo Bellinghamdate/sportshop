@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title data-i18n="admin.seedTitle">Nạp dữ liệu mẫu</title>
+  <link rel="stylesheet" href="css/admin.css"/>
+</head>
+<body class="admin-login-page" data-page="seed">
+  <main class="login-box">
+    <button class="btn btn--outline btn--sm" id="langBtn" data-i18n-label="nav.language">EN</button>
+    <h1 data-i18n="admin.seedTitle">Nạp dữ liệu mẫu</h1>
+    <p data-i18n="admin.seedDesc"></p>
+    <fieldset id="seedActions" disabled>
+      <button type="button" class="btn btn--primary" data-method="seedAll" data-i18n="admin.seedAll"></button>
+      <button type="button" class="btn btn--outline" data-method="seedProducts" data-i18n="admin.seedProducts"></button>
+      <button type="button" class="btn btn--outline" data-method="seedBlogs" data-i18n="admin.seedBlogs"></button>
+      <button type="button" class="btn btn--danger" data-method="clearProducts" data-i18n="admin.clearProducts"></button>
+    </fieldset>
+    <p role="status"><span id="accessMessage" data-i18n="admin.checking"></span> <output id="seedCount"></output></p>
+    <a class="btn btn--outline" href="admin/dashboard.html" data-i18n="admin.dashboard"></a>
+  </main>
+  <script type="module" src="js/admin-page.js"></script>
+</body>
+</html>

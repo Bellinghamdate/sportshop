@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="home.title">Sport Zone – Giày thể thao</title>
+  <meta name="description" content="Sport Zone – Nơi hội tụ dòng giày thể thao chính hãng: bóng đá, chạy bộ, pickleball, gym." />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+<!-- Header -->
+<div id="header-placeholder"></div>
+
+<!-- ======================== HERO ======================== -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge badge--lime" data-i18n="hero.badge"></span>
+        </div>
+        <h1>
+          <span data-i18n="hero.h1a"></span><br/>
+          <em data-i18n="hero.h1b"></em><br/>
+          <span data-i18n="hero.h1c"></span>
+        </h1>
+        <p data-i18n="hero.desc"></p>
+        <div class="hero-actions">
+          <a href="products.html" class="btn btn--lime btn--lg" data-i18n="hero.cta1"></a>
+          <a href="#categories" class="btn btn--outline-white btn--lg" data-i18n="hero.cta2"></a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="hero-img-wrap">
+          <div class="hero-img-placeholder">👟</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== CATEGORIES ======================== -->
+<section class="section" id="categories">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow" data-i18n="cat.section_badge"></div>
+      <h2 data-i18n="cat.section_title"></h2>
+      <p data-i18n="cat.section_desc"></p>
+    </div>
+    <div class="categories-grid">
+      <!-- Bóng đá -->
+      <a href="products.html?category=football" class="cat-card">
+        <div class="cat-card-bg football"><span>⚽</span></div>
+        <div class="cat-overlay">
+          <div class="cat-icon">⚽</div>
+          <div class="cat-name" data-i18n="cat.football"></div>
+          <div class="cat-count" data-i18n="cat.explore"></div>
+          <div class="cat-arrow">→</div>
+        </div>
+      </a>
+      <!-- Chạy bộ -->
+      <a href="products.html?category=running" class="cat-card">
+        <div class="cat-card-bg running"><span>🏃</span></div>
+        <div class="cat-overlay">
+          <div class="cat-icon">🏃</div>
+          <div class="cat-name" data-i18n="cat.running"></div>
+          <div class="cat-count" data-i18n="cat.explore"></div>
+          <div class="cat-arrow">→</div>
+        </div>
+      </a>
+      <!-- Pickleball / Cầu lông -->
+      <a href="products.html?category=badminton" class="cat-card">
+        <div class="cat-card-bg badminton"><span>🏸</span></div>
+        <div class="cat-overlay">
+          <div class="cat-icon">🏸</div>
+          <div class="cat-name" data-i18n="cat.badminton"></div>
+          <div class="cat-count" data-i18n="cat.explore"></div>
+          <div class="cat-arrow">→</div>
+        </div>
+      </a>
+      <!-- Gym -->
+      <a href="products.html?category=gym" class="cat-card">
+        <div class="cat-card-bg gym"><span>💪</span></div>
+        <div class="cat-overlay">
+          <div class="cat-icon">💪</div>
+          <div class="cat-name" data-i18n="cat.gym"></div>
+          <div class="cat-count" data-i18n="cat.explore"></div>
+          <div class="cat-arrow">→</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== FEATURED PRODUCTS ======================== -->
+<section class="section section--gray" id="featured">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow" data-i18n="featured.badge"></div>
+      <h2 data-i18n="featured.title"></h2>
+      <p data-i18n="featured.desc"></p>
+    </div>
+    <div id="featuredGrid" class="products-grid">
+      <!-- Spinner khi tải -->
+      <div style="grid-column:1/-1" class="spinner-wrap"><div class="spinner"></div></div>
+    </div>
+    <div style="text-align:center;margin-top:40px">
+      <a href="products.html" class="btn btn--outline btn--lg" data-i18n="featured.view_all"></a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== WHY CHOOSE US ======================== -->
+<section class="section" id="why">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow" data-i18n="why.badge"></div>
+      <h2 data-i18n="why.title"></h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">✅</div>
+        <h3 data-i18n="why.1_title"></h3>
+        <p data-i18n="why.1_desc"></p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🚚</div>
+        <h3 data-i18n="why.2_title"></h3>
+        <p data-i18n="why.2_desc"></p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔄</div>
+        <h3 data-i18n="why.3_title"></h3>
+        <p data-i18n="why.3_desc"></p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💬</div>
+        <h3 data-i18n="why.4_title"></h3>
+        <p data-i18n="why.4_desc"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== LANDING PROMO ======================== -->
+<section class="section" style="background:linear-gradient(135deg,var(--navy) 0%,#162E6A 100%);color:var(--white);padding:80px 0">
+  <div class="container promo-layout">
+    <div>
+      <span class="badge badge--lime" style="margin-bottom:16px" data-i18n="promo.badge"></span>
+      <h2 style="color:var(--white);margin-bottom:16px">Pro Match Football<br/><em style="color:var(--lime);font-style:normal" data-i18n="promo.tagline"></em></h2>
+      <p style="color:rgba(255,255,255,0.8);margin-bottom:28px;line-height:1.8" data-i18n="promo.desc"></p>
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:28px">
+        <span id="offerPrice" style="font-size:2rem;font-weight:900;color:var(--lime)"></span>
+        <del id="originalPrice"></del>
+        <span id="discount" class="badge badge--lime hidden"></span>
+      </div>
+      <p id="offerStatus" style="color:white" role="status"></p>
+      <a id="offerLink" href="landing.html" class="btn btn--lime btn--lg" data-i18n="promo.cta"></a>
+    </div>
+    <div style="display:flex;justify-content:center">
+      <div style="width:300px;height:300px;background:rgba(198,244,50,0.1);border:2px solid rgba(198,244,50,0.25);border-radius:50%;display:grid;place-items:center;font-size:8rem">⚽</div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<div id="footer-placeholder"></div>
+
+<script type="module">
+  import { initI18n, applyTranslations } from './js/i18n.js';
+  import { renderHeader, renderFooter, updateCartCount } from './js/utils.js';
+  import { renderCards } from './js/product-cards.js';
+  import { loadOffer } from './js/offer.js';
+
+  renderHeader('home');
+  renderFooter();
+  initI18n();
+  updateCartCount();
+
+  loadOffer();
+
+  const grid = document.getElementById('featuredGrid');
+  try {
+    const { getProducts } = await import('./js/catalog.js');
+    let products = await getProducts({ featured: true, count: 4 });
+    if (!products.length) products = await getProducts({ count: 4 });
+    if (products.length) {
+      const render = () => renderCards(grid, products);
+      render();
+      window.addEventListener('langChange', render);
+    } else {
+      grid.innerHTML = '<p class="catalog-status" data-i18n="products.none"></p>';
+    }
+  } catch {
+    grid.innerHTML = '<p class="catalog-status" role="alert" data-i18n="products.load_error"></p>';
+  }
+  applyTranslations();
+</script>
+</body>
+</html>

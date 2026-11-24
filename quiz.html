@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tư vấn giày · Sport Zone</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/shop.css">
+  </head>
+  <body data-page="quiz">
+    <div id="header-placeholder"></div>
+    <main>
+      <header class="page-hero">
+        <div class="container">
+          <h1 data-i18n="quiz.title"></h1>
+          <p data-i18n="quiz.desc"></p>
+        </div>
+      </header>
+      <div class="container shop-stack">
+        <form id="quizForm" class="shop-panel shop-form">
+          <div class="quiz-grid" id="questions"></div>
+          <button class="btn btn--primary" data-i18n="quiz.submit"></button>
+        </form>
+        <section id="quizResult" hidden tabindex="-1">
+          <h2 data-i18n="quiz.result_title"></h2>
+          <p id="quizNote" role="status"></p>
+          <div id="quizCards" class="products-grid"></div>
+        </section>
+      </div>
+    </main>
+    <div id="footer-placeholder"></div>
+    <script type="module" src="js/quiz.js"></script>
+  </body>
+</html>

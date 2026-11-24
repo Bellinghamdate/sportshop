@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pro Match Football · Sport Zone</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/shop.css">
+  </head>
+  <body data-page="landing">
+    <div id="header-placeholder"></div>
+    <main>
+      <section class="match-hero">
+        <div class="container match-layout">
+          <div>
+            <span class="badge badge--lime" data-i18n="cat.football"></span>
+            <h1>
+              Pro Match
+              <br>
+              <em>Football</em>
+            </h1>
+            <p data-i18n="promo.desc"></p>
+            <div class="match-price">
+              <strong id="offerPrice"></strong>
+              <del id="originalPrice"></del>
+              <span id="discount"></span>
+            </div>
+            <a class="btn btn--lime" id="offerLink" href="product-detail.html?id=football-01" data-i18n="landing.cta"></a>
+            <p id="offerStatus" role="status"></p>
+          </div>
+          <div id="offerPhoto" class="match-photo" aria-hidden="true">⚽</div>
+        </div>
+      </section>
+      <section class="container shop-stack">
+        <h2 data-i18n="landing.benefits"></h2>
+        <div class="benefits">
+          <section class="shop-panel">
+            <h2 data-i18n="landing.grip"></h2>
+            <p data-i18n="landing.gripText"></p>
+          </section>
+          <section class="shop-panel">
+            <h2 data-i18n="landing.upper"></h2>
+            <p data-i18n="landing.upperText"></p>
+          </section>
+          <section class="shop-panel">
+            <h2 data-i18n="landing.lining"></h2>
+            <p data-i18n="landing.liningText"></p>
+          </section>
+        </div>
+      </section>
+    </main>
+    <div id="footer-placeholder"></div>
+    <script type="module" src="js/info.js"></script>
+  </body>
+</html>

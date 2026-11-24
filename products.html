@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sport Zone</title>
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<!-- Page Hero -->
+<section class="page-hero">
+  <div class="container">
+    <h1 data-i18n="products.title"></h1>
+    <p data-i18n="products.desc"></p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="products-layout">
+
+    <!-- ===== SIDEBAR BỘ LỌC ===== -->
+    <aside class="sidebar">
+      <h3 data-i18n="products.filters">Bộ lọc</h3>
+
+      <!-- Lọc theo danh mục -->
+      <div class="filter-group">
+        <h4 data-i18n="products.filter_category"></h4>
+        <label class="filter-check"><input type="checkbox" value="football" id="fc-football"/> <span data-i18n="cat.football"></span></label>
+        <label class="filter-check"><input type="checkbox" value="running" id="fc-running"/> <span data-i18n="cat.running"></span></label>
+        <label class="filter-check"><input type="checkbox" value="badminton" id="fc-badminton"/> <span data-i18n="cat.badminton"></span></label>
+        <label class="filter-check"><input type="checkbox" value="gym" id="fc-gym"/> <span data-i18n="cat.gym"></span></label>
+      </div>
+
+      <!-- Lọc theo giá -->
+      <div class="filter-group">
+        <h4 data-i18n="products.filter_price"></h4>
+        <label class="filter-check"><input type="radio" name="priceRange" value="" checked/> <span data-i18n="products.price_all"></span></label>
+        <label class="filter-check"><input type="radio" name="priceRange" value="0-499999"/> <span data-i18n="products.price_1"></span></label>
+        <label class="filter-check"><input type="radio" name="priceRange" value="500000-999999"/> <span data-i18n="products.price_2"></span></label>
+        <label class="filter-check"><input type="radio" name="priceRange" value="1000000-2000000"/> <span data-i18n="products.price_3"></span></label>
+        <label class="filter-check"><input type="radio" name="priceRange" value="2000001-Infinity"/> <span data-i18n="products.price_4"></span></label>
+      </div>
+
+      <!-- Lọc theo size -->
+      <div class="filter-group">
+        <h4 data-i18n="products.filter_size"></h4>
+        <div style="display:flex;flex-wrap:wrap;gap:6px" id="sizeFilters">
+          <!-- Render bằng JS -->
+        </div>
+      </div>
+
+      <button class="btn btn--primary btn--block" id="applyFilterBtn" data-i18n="products.apply_filter"></button>
+      <button class="btn btn--outline btn--block" style="margin-top:8px" id="resetFilterBtn" data-i18n="products.reset_filter"></button>
+    </aside>
+
+    <!-- ===== MAIN PRODUCTS AREA ===== -->
+    <main>
+      <!-- Thanh tìm kiếm -->
+      <div class="search-bar">
+        <input type="text" id="searchInput" data-i18n-label="general.search" data-i18n-placeholder="products.search_placeholder" />
+        <button id="searchBtn" data-i18n-label="general.search">🔍</button>
+      </div>
+
+      <!-- Toolbar: đếm + sắp xếp -->
+      <div class="products-toolbar">
+        <div class="products-count" id="productsCount"></div>
+        <select class="sort-select" id="sortSelect" data-i18n-label="products.sort">
+          <option value="" data-i18n="products.sort_default"></option>
+          <option value="price_asc" data-i18n="products.sort_price_asc"></option>
+          <option value="price_desc" data-i18n="products.sort_price_desc"></option>
+          <option value="name" data-i18n="products.sort_name"></option>
+        </select>
+      </div>
+
+      <!-- Active filters pills -->
+      <div id="activePills" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px"></div>
+
+      <!-- Product Grid -->
+      <div id="productsGrid" class="products-grid">
+        <div style="grid-column:1/-1" class="spinner-wrap"><div class="spinner"></div></div>
+      </div>
+
+      <!-- Load more -->
+      <div class="load-more-wrap">
+        <button class="btn btn--outline btn--lg hidden" id="loadMoreBtn" data-i18n="products.load_more"></button>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script type="module">
+  import { initI18n, applyTranslations, t } from './js/i18n.js';
+  import { renderHeader, renderFooter, updateCartCount, getParam } from './js/utils.js';
+  import { renderCards } from './js/product-cards.js';
+
+  renderHeader('products');
+  renderFooter();
+  initI18n();
+  updateCartCount();
+
+  let sizes = [];
+  let loadError = false;
+  const PAGE_SIZE = 9;
+
+  let allProducts = [];
+  let filtered = [];
+  let page = 1;
+  let selectedSizes = new Set();
+
+  // Render size filter chips
+  function renderSizeFilters() {
+    const wrap = document.getElementById('sizeFilters');
+    wrap.replaceChildren();
+    for (const size of sizes) {
+      const button = document.createElement('button');
+      button.className = 'size-chip size-filter';
+      button.textContent = size;
+      button.setAttribute('aria-pressed', String(selectedSizes.has(size)));
+      button.addEventListener('click', () => {
+        if (selectedSizes.has(size)) selectedSizes.delete(size);
+        else selectedSizes.add(size);
+        button.setAttribute('aria-pressed', String(selectedSizes.has(size)));
+      });
+      wrap.append(button);
+    }
+  }
+
+  // Lấy tất cả sản phẩm từ Firestore
+  async function loadProducts() {
+    try {
+      const { getProducts } = await import('./js/catalog.js');
+      allProducts = await getProducts();
+      sizes = [...new Set(allProducts.flatMap(p => (p.sizes || []).map(String)))];
+      sizes.sort((a, b) => a.localeCompare(b, 'vi', { numeric: true }));
+      renderSizeFilters();
+    } catch {
+      loadError = true;
+    }
+    // Nếu URL có ?category= thì tích sẵn checkbox
+    const cat = getParam('category');
+    if (cat) {
+      const cb = document.getElementById(`fc-${cat}`);
+      if (cb) cb.checked = true;
+    }
+    applyFilters();
+  }
+
+  // Lọc + sắp xếp
+  function applyFilters() {
+    page = 1;
+    document.title = t('products.title') + ' – Sport Zone';
+    const search = document.getElementById('searchInput').value.trim();
+    const term = search.toLocaleLowerCase();
+    const cats = [...document.querySelectorAll('#fc-football,#fc-running,#fc-badminton,#fc-gym')].filter(c=>c.checked).map(c=>c.value);
+    const priceVal = document.querySelector('input[name="priceRange"]:checked')?.value || '';
+    const [pMin, pMax] = priceVal ? priceVal.split('-').map(Number) : [0, Infinity];
+    const sort = document.getElementById('sortSelect').value;
+
+    filtered = allProducts.filter(p => {
+      if (term && ![p.name, p.description, p.shortDescription, t('cat.' + p.category), p.descriptionEn, p.shortDescriptionEn].some(value => String(value || '').toLocaleLowerCase().includes(term))) return false;
+      if (cats.length && !cats.includes(p.category)) return false;
+      if (p.price < pMin || p.price > pMax) return false;
+      if (selectedSizes.size && !(p.sizes||[]).some(s => selectedSizes.has(String(s)))) return false;
+      return true;
+    });
+
+    // Sắp xếp
+    if (sort === 'price_asc') filtered.sort((a,b) => a.price - b.price);
+    else if (sort === 'price_desc') filtered.sort((a,b) => b.price - a.price);
+    else if (sort === 'name') filtered.sort((a,b) => a.name.localeCompare(b.name, 'vi'));
+
+    renderProducts();
+    renderActivePills(cats, priceVal, search);
+  }
+
+  // Hiển thị sản phẩm
+  function renderProducts() {
+    const grid = document.getElementById('productsGrid');
+    const countEl = document.getElementById('productsCount');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+    const slice = filtered.slice(0, page * PAGE_SIZE);
+    countEl.textContent = `${filtered.length} ${t('products.results')}`;
+
+    if (loadError || !allProducts.length) {
+      grid.innerHTML = '<p class="catalog-status"></p>';
+      grid.firstChild.textContent = t(loadError ? 'products.load_error' : 'products.none');
+      countEl.textContent = '';
+      loadMoreBtn.classList.add('hidden');
+      return;
+    }
+    if (!filtered.length) {
+      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="icon">🔍</div><h3 data-i18n="products.empty"></h3><p data-i18n="products.empty_desc"></p></div>`;
+      loadMoreBtn.classList.add('hidden');
+      applyTranslations();
+      return;
+    }
+
+    renderCards(grid, slice);
+    loadMoreBtn.classList.toggle('hidden', page * PAGE_SIZE >= filtered.length);
+    applyTranslations();
+  }
+
+  // Hiện pills filter đang active
+  function renderActivePills(cats, priceVal, search) {
+    const wrap = document.getElementById('activePills');
+    const pills = [];
+    if (search) pills.push({ label: `🔍 ${search}`, clear: () => { document.getElementById('searchInput').value = ''; applyFilters(); } });
+    cats.forEach(c => pills.push({ label: getCatLabel(c), clear: () => { document.getElementById(`fc-${c}`).checked = false; applyFilters(); } }));
+    if (priceVal) pills.push({ label: getPriceLabel(priceVal), clear: () => { document.querySelector('input[name="priceRange"]').checked = true; applyFilters(); } });
+    selectedSizes.forEach(s => pills.push({ label: `Size ${s}`, clear: () => { selectedSizes.delete(s); renderSizeFilters(); applyFilters(); } }));
+
+    wrap.replaceChildren();
+    for (const pill of pills) {
+      const button = document.createElement('button');
+      button.className = 'filter-pill';
+      button.textContent = pill.label + ' ×';
+      button.setAttribute('aria-label', t('general.delete') + ' · ' + pill.label);
+      button.addEventListener('click', pill.clear);
+      wrap.append(button);
+    }
+  }
+
+  function getCatLabel(cat) {
+    return { football: t('cat.football'), running: t('cat.running'), badminton: t('cat.badminton'), gym: t('cat.gym') }[cat] || cat;
+  }
+  function getPriceLabel(v) {
+    const map = { '0-499999': t('products.price_1'), '500000-999999': t('products.price_2'), '1000000-2000000': t('products.price_3'), '2000001-Infinity': t('products.price_4') };
+    return map[v] || v;
+  }
+
+  // Events
+  document.getElementById('applyFilterBtn').addEventListener('click', applyFilters);
+  document.getElementById('resetFilterBtn').addEventListener('click', () => {
+    document.querySelectorAll('input[type=checkbox]').forEach(c => c.checked = false);
+    document.querySelector('input[name="priceRange"]').checked = true;
+    document.getElementById('searchInput').value = '';
+    document.getElementById('sortSelect').value = '';
+    selectedSizes.clear();
+    renderSizeFilters();
+    applyFilters();
+  });
+  document.getElementById('searchBtn').addEventListener('click', applyFilters);
+  document.getElementById('searchInput').addEventListener('keydown', e => { if (e.key === 'Enter') applyFilters(); });
+  document.getElementById('sortSelect').addEventListener('change', applyFilters);
+  document.getElementById('loadMoreBtn').addEventListener('click', () => { page++; renderProducts(); });
+  window.addEventListener('langChange', applyFilters);
+
+  renderSizeFilters();
+  loadProducts();
+</script>
+</body>
+</html>

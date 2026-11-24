@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chi tiết sản phẩm – Sport Zone</title>
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<!-- Breadcrumb -->
+<div class="container">
+  <div class="breadcrumb">
+    <a href="index.html" data-i18n="nav.home">Trang chủ</a>
+    <span>/</span>
+    <a href="products.html" data-i18n="nav.products">Sản phẩm</a>
+    <span>/</span>
+    <span id="breadcrumbName">...</span>
+  </div>
+</div>
+
+<!-- Spinner ban đầu -->
+<div id="loadingWrap" class="container spinner-wrap">
+  <div class="spinner"></div>
+</div>
+
+<!-- Chi tiết sản phẩm (ẩn khi đang tải) -->
+<div class="container hidden" id="detailWrap">
+  <div class="detail-layout">
+
+    <!-- === CỘT TRÁI: Gallery ảnh === -->
+    <div class="detail-gallery">
+      <div class="gallery-main" id="galleryMain">
+        <span id="galleryEmoji">👟</span>
+      </div>
+      <div class="gallery-thumbs" id="galleryThumbs">
+        <!-- Thumb render bằng JS -->
+      </div>
+    </div>
+
+    <!-- === CỘT PHẢI: Thông tin === -->
+    <div class="detail-info">
+      <div class="detail-category" id="detailCategory"></div>
+      <h1 class="detail-name" id="detailName"></h1>
+
+      <!-- Lượt xem & like -->
+      <div class="detail-meta">
+        <div class="detail-views">
+          👁️ <span id="viewCount">0</span> <span data-i18n="detail.views"></span>
+        </div>
+        <div class="detail-likes">
+          ❤️ <span id="likeCount">0</span> <span data-i18n="detail.likes"></span>
+        </div>
+        <div>
+          <span id="stockBadge" class="badge badge--navy"></span>
+        </div>
+      </div>
+
+      <!-- Giá -->
+      <div class="detail-price-wrap">
+        <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+          <span id="detailPriceOld" class="detail-price-old" style="display:none"></span>
+          <span id="detailPrice" class="detail-price"></span>
+          <span id="detailDiscount" class="detail-discount" style="display:none"></span>
+        </div>
+      </div>
+
+      <!-- Mô tả ngắn -->
+      <p class="detail-desc" id="detailDesc"></p>
+
+      <!-- Chọn size -->
+      <div class="size-label">
+        <span data-i18n="detail.choose_size"></span>
+        <a href="size-guide.html" data-i18n="detail.size_guide"></a>
+      </div>
+      <div class="sizes-wrap" id="sizesWrap">
+        <!-- Render bằng JS -->
+      </div>
+
+      <!-- Nút hành động -->
+      <div class="detail-actions">
+        <button class="btn btn--primary btn--lg" id="addCartBtn" style="flex:1">
+          🛒 <span data-i18n="detail.add_cart"></span>
+        </button>
+        <button class="btn btn--lime btn--lg" id="buyNowBtn" style="flex:1" data-i18n="detail.buy_now"></button>
+        <button class="btn-like" id="likeBtn" data-i18n-label="detail.like" aria-pressed="false">❤️</button>
+      </div>
+
+      <!-- Lợi ích nhanh -->
+      <div style="margin-top:24px;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;align-items:center;gap:10px;font-size:0.9rem;color:var(--gray-800)">✅ <span data-i18n="detail.warranty"></span></div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:0.9rem;color:var(--gray-800)">🚚 <span data-i18n="detail.shipping"></span></div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:0.9rem;color:var(--gray-800)">🔄 <span data-i18n="detail.returns"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- === Mô tả chi tiết === -->
+  <div style="padding:40px 0 20px">
+    <h2 style="color:var(--navy);margin-bottom:20px" data-i18n="detail.description"></h2>
+    <div id="detailFullDesc" style="line-height:1.9;color:var(--gray-800);max-width:720px"></div>
+
+    <!-- Features -->
+    <div id="detailFeatures" style="margin-top:28px"></div>
+  </div>
+
+  <!-- === Sản phẩm liên quan === -->
+  <div style="padding:40px 0">
+    <h2 style="color:var(--navy);margin-bottom:28px" data-i18n="detail.related"></h2>
+    <div id="relatedGrid" class="products-grid"></div>
+  </div>
+</div>
+
+<!-- Error state -->
+<div class="container hidden" id="errorWrap" style="text-align:center;padding:80px 20px">
+  <div style="font-size:4rem">😕</div>
+  <h2 style="margin:16px 0 8px" id="detailError" data-i18n="detail.not_found"></h2>
+  <a href="products.html" class="btn btn--primary btn--lg" style="margin-top:16px" data-i18n="detail.back"></a>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script type="module" src="./js/product-detail.js"></script>
+</body>
+</html>
