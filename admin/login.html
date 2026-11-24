@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login – Sport Zone</title>
+    <link rel="stylesheet" href="../css/admin.css" />
+  </head>
+  <body data-page="login">
+    <div class="admin-login-page">
+      <div class="login-box">
+        <button
+          class="btn btn--outline btn--sm"
+          id="langBtn"
+          data-i18n-label="nav.language"
+        >
+          EN
+        </button>
+        <div class="login-logo">
+          <h1><img src="../images/brand/sport-zone-on-light.svg" alt="Sport Zone" width="220" height="32" /></h1>
+          <p data-i18n="admin.loginTitle">Trang quản trị nội bộ</p>
+        </div>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              placeholder="admin@sportzone.vn"
+              required
+              autocomplete="email"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password" data-i18n="admin.password">Mật khẩu</label>
+            <input
+              type="password"
+              id="password"
+              class="form-control"
+              placeholder="••••••••"
+              required
+              autocomplete="current-password"
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn--primary"
+            id="loginBtn"
+            data-i18n="admin.login"
+            disabled
+          >
+            🔐 Đăng nhập
+          </button>
+          <div
+            id="accessMessage"
+            role="status"
+            data-i18n="admin.checking"
+            class="login-error"
+          ></div>
+        </form>
+
+        <div id="roleHelp" hidden>
+          <label for="signedInUid" data-i18n="admin.signedInUid"></label>
+          <input id="signedInUid" class="form-control" readonly />
+          <p data-i18n="admin.roleHelp"></p>
+        </div>
+
+        <div
+          style="
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--gray-600);
+          "
+        >
+          <span data-i18n="admin.course"></span>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="../js/admin-page.js"></script>
+  </body>
+</html>
